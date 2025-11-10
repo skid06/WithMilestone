@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import EligibilityAssessment from './EligibilityAssessment';
-import StatesListPage from './pages/StatesListPage';
 import StateDetailPage from './pages/StateDetailPage';
 import LoginPage from './auth/LoginPage';
 import RegisterPage from './auth/RegisterPage';
@@ -46,9 +45,6 @@ export default function App() {
                         <Link to="/" className="text-gray-600 hover:text-gray-900 font-medium">
                             Home
                         </Link>
-                        <Link to="/states" className="text-gray-600 hover:text-gray-900 font-medium">
-                            Divorce by State
-                        </Link>
 
                         {isAuthenticated ? (
                             <>
@@ -90,7 +86,6 @@ export default function App() {
                         }
                     />
                     <Route path="/assessment" element={<EligibilityAssessment onComplete={() => window.location.href = '/'} />} />
-                    <Route path="/states" element={<StatesListPage />} />
                     <Route path="/states/:stateCode" element={<StateDetailPage />} />
                     <Route path="/checkout" element={<CheckoutPage />} />
                     <Route

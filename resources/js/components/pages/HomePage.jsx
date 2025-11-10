@@ -24,12 +24,6 @@ export default function HomePage() {
                                 >
                                     Check Your Eligibility
                                 </Link>
-                                <Link
-                                    to="/states"
-                                    className="inline-block bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 rounded-lg text-lg transition text-center"
-                                >
-                                    Browse by State
-                                </Link>
                             </div>
                         </div>
                         <div
@@ -220,21 +214,6 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* State Selector Section */}
-            <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-20 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold text-gray-900 mb-6">Divorce Information by State</h2>
-                    <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
-                        Learn about divorce requirements, filing fees, and procedures specific to your state.
-                    </p>
-                    <Link
-                        to="/states"
-                        className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-lg text-lg transition"
-                    >
-                        Explore All States
-                    </Link>
-                </div>
-            </section>
 
             {/* FAQ Section */}
             <section className="bg-white py-20 px-4 sm:px-6 lg:px-8">
