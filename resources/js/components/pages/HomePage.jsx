@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import StatesFooter from '../StatesFooter';
 
 export default function HomePage() {
     return (
@@ -301,6 +302,9 @@ export default function HomePage() {
                     </Link>
                 </div>
             </section>
+
+            {/* States Footer */}
+            <StatesFooter />
         </div>
     );
 }
