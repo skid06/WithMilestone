@@ -49,13 +49,6 @@ export default function StateDetailPage() {
 
     return (
         <div>
-            {/* Breadcrumb */}
-            <div className="mb-6">
-                <Link to="/states" className="text-blue-600 hover:text-blue-700 font-semibold">
-                    ← Back to States
-                </Link>
-            </div>
-
             {/* Header */}
             <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg p-12 mb-12">
                 <h1 className="text-5xl font-bold mb-4">{state.state_name}</h1>
@@ -66,27 +59,27 @@ export default function StateDetailPage() {
                 {/* Quick Stats */}
                 <div className="grid md:grid-cols-4 gap-6 mt-8">
                     {state.residency_requirement_days && (
-                        <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                            <p className="text-sm opacity-75">Residency Requirement</p>
-                            <p className="text-2xl font-bold">{state.residency_requirement_days} days</p>
+                        <div className="bg-blue-500 bg-opacity-20 rounded-lg p-4 backdrop-blur-sm border border-white border-opacity-30">
+                            <p className="text-sm opacity-75 text-white">Residency Requirement</p>
+                            <p className="text-2xl font-bold text-white">{state.residency_requirement_days} days</p>
                         </div>
                     )}
                     {state.min_filing_fee && (
-                        <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                            <p className="text-sm opacity-75">Filing Fee</p>
-                            <p className="text-2xl font-bold">${state.min_filing_fee}</p>
+                        <div className="bg-blue-500 bg-opacity-20 rounded-lg p-4 backdrop-blur-sm border border-white border-opacity-30">
+                            <p className="text-sm opacity-75 text-white">Filing Fee</p>
+                            <p className="text-2xl font-bold text-white">${state.min_filing_fee}</p>
                         </div>
                     )}
                     {state.supports_uncontested !== undefined && (
-                        <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                            <p className="text-sm opacity-75">Uncontested Divorce</p>
-                            <p className="text-2xl font-bold">{state.supports_uncontested ? '✓ Yes' : '✗ No'}</p>
+                        <div className="bg-blue-500 bg-opacity-20 rounded-lg p-4 backdrop-blur-sm border border-white border-opacity-30">
+                            <p className="text-sm opacity-75 text-white">Uncontested Divorce</p>
+                            <p className="text-2xl font-bold text-white">{state.supports_uncontested ? '✓ Yes' : '✗ No'}</p>
                         </div>
                     )}
                     {state.supports_contested !== undefined && (
-                        <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                            <p className="text-sm opacity-75">Contested Divorce</p>
-                            <p className="text-2xl font-bold">{state.supports_contested ? '✓ Yes' : '✗ No'}</p>
+                        <div className="bg-blue-500 bg-opacity-20 rounded-lg p-4 backdrop-blur-sm border border-white border-opacity-30">
+                            <p className="text-sm opacity-75 text-white">Contested Divorce</p>
+                            <p className="text-2xl font-bold text-white">{state.supports_contested ? '✓ Yes' : '✗ No'}</p>
                         </div>
                     )}
                 </div>
@@ -250,7 +243,7 @@ export default function StateDetailPage() {
             </div>
 
             {/* FAQ Section */}
-            <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200">
+            <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200 mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">
                     Frequently Asked Questions
                 </h2>
