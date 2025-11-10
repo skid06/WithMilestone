@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function StatesFooter() {
@@ -32,19 +33,17 @@ export default function StatesFooter() {
                     Available States
                 </h3>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {states.map(state => (
-                        <div
+                        <Link
                             key={state.id}
-                            className="text-center"
+                            to={`/states/${state.state_code.toLowerCase()}`}
+                            className="text-center hover:text-blue-600 transition"
                         >
-                            <p className="text-gray-700 hover:text-blue-600 transition font-medium cursor-pointer">
-                                {state.state_code}
+                            <p className="text-gray-700 hover:text-blue-600 transition font-medium">
+                                Divorce in {state.state_name}
                             </p>
-                            <p className="text-xs text-gray-500">
-                                {state.state_name}
-                            </p>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
