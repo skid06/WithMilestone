@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import StatesFooter from '../StatesFooter';
 
 export default function StateDetailPage() {
     const { stateCode } = useParams();
@@ -274,6 +275,9 @@ export default function StateDetailPage() {
                     </div>
                 </div>
             </section>
+
+            {/* States Footer */}
+            <StatesFooter />
         </div>
     );
 }
