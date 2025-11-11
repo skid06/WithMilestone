@@ -50,39 +50,53 @@ export default function StateDetailPage() {
 
     return (
         <div>
-            {/* Header */}
-            <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg p-12 mb-12">
-                <h1 className="text-5xl font-bold mb-4">{state.state_name}</h1>
-                <p className="text-xl opacity-90 mb-6">
-                    Comprehensive guide to filing for divorce in {state.state_name}
-                </p>
+            {/* Hero Section */}
+            <section className="bg-white text-gray-900 py-20 px-4 sm:px-6 lg:px-8 mb-12">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        {/* Left Column - Text Content */}
+                        <div>
+                            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-gray-900">
+                                Divorce in {state.state_name}
+                            </h1>
+                            <p className="text-xl text-gray-700 mb-8 leading-relaxed">
+                                Comprehensive guide to filing for divorce in {state.state_name}. Get the information you need to navigate the process efficiently and affordably.
+                            </p>
+                            <div className="space-y-4 mb-8">
+                                {state.residency_requirement_days && (
+                                    <div className="flex items-start gap-3">
+                                        <span className="text-2xl text-blue-600 font-bold">✓</span>
+                                        <span className="text-lg text-gray-700">Residency: {state.residency_requirement_days} days</span>
+                                    </div>
+                                )}
+                                {state.min_filing_fee && (
+                                    <div className="flex items-start gap-3">
+                                        <span className="text-2xl text-blue-600 font-bold">✓</span>
+                                        <span className="text-lg text-gray-700">Filing Fee: ${state.min_filing_fee}</span>
+                                    </div>
+                                )}
+                                {state.supports_uncontested && (
+                                    <div className="flex items-start gap-3">
+                                        <span className="text-2xl text-blue-600 font-bold">✓</span>
+                                        <span className="text-lg text-gray-700">Uncontested Divorce Available</span>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <Link
+                                    to={`/assessment?state_code=${stateCode}`}
+                                    className="inline-block bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-blue-700 transition text-center"
+                                >
+                                    Check Your Eligibility
+                                </Link>
+                            </div>
+                        </div>
 
-                {/* Quick Stats */}
-                <div className="grid md:grid-cols-4 gap-6 mt-8">
-                    {state.residency_requirement_days && (
-                        <div className="bg-blue-500 bg-opacity-20 rounded-lg p-4 backdrop-blur-sm border border-white border-opacity-30">
-                            <p className="text-sm opacity-75 text-white">Residency Requirement</p>
-                            <p className="text-2xl font-bold text-white">{state.residency_requirement_days} days</p>
+                        {/* Right Column - Image */}
+                        <div className="flex justify-center">
+                            <img src="/images/hero-dissolution.png" alt="Professional mediation meeting" className="w-full rounded-lg shadow-xl" />
                         </div>
-                    )}
-                    {state.min_filing_fee && (
-                        <div className="bg-blue-500 bg-opacity-20 rounded-lg p-4 backdrop-blur-sm border border-white border-opacity-30">
-                            <p className="text-sm opacity-75 text-white">Filing Fee</p>
-                            <p className="text-2xl font-bold text-white">${state.min_filing_fee}</p>
-                        </div>
-                    )}
-                    {state.supports_uncontested !== undefined && (
-                        <div className="bg-blue-500 bg-opacity-20 rounded-lg p-4 backdrop-blur-sm border border-white border-opacity-30">
-                            <p className="text-sm opacity-75 text-white">Uncontested Divorce</p>
-                            <p className="text-2xl font-bold text-white">{state.supports_uncontested ? '✓ Yes' : '✗ No'}</p>
-                        </div>
-                    )}
-                    {state.supports_contested !== undefined && (
-                        <div className="bg-blue-500 bg-opacity-20 rounded-lg p-4 backdrop-blur-sm border border-white border-opacity-30">
-                            <p className="text-sm opacity-75 text-white">Contested Divorce</p>
-                            <p className="text-2xl font-bold text-white">{state.supports_contested ? '✓ Yes' : '✗ No'}</p>
-                        </div>
-                    )}
+                    </div>
                 </div>
             </section>
 
