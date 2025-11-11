@@ -9,26 +9,16 @@ export default function HomePage() {
             <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
+                        {/* Left Column - Text Content */}
                         <div>
                             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                                Milestone – Divorce Made Simple, Fast, and Affordable
+                                Divorce Made Simple, Fast, and Affordable
                             </h1>
                             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
                                 Handle your divorce entirely online, from the comfort of your home, without the hassle
                                 of expensive lawyers or court appearances.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <Link
-                                    to="/assessment"
-                                    className="inline-block bg-white text-blue-600 font-bold py-4 px-8 rounded-lg text-lg hover:bg-gray-100 transition text-center"
-                                >
-                                    Check Your Eligibility
-                                </Link>
-                            </div>
-                        </div>
-                        <div
-                            className="bg-blue-500 bg-opacity-20 rounded-lg p-8 backdrop-blur-sm border border-white border-opacity-30">
-                            <div className="space-y-4">
+                            <div className="space-y-4 mb-8">
                                 <div className="flex items-start gap-3">
                                     <span className="text-2xl text-white">✓</span>
                                     <span className="text-lg text-white">Simple, step-by-step process</span>
@@ -41,15 +31,20 @@ export default function HomePage() {
                                     <span className="text-2xl text-white">✓</span>
                                     <span className="text-lg text-white">Available in all 50 states</span>
                                 </div>
-                                <div className="flex items-start gap-3">
-                                    <span className="text-2xl text-white">✓</span>
-                                    <span className="text-lg text-white">Uncontested divorces only</span>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <span className="text-2xl text-white">✓</span>
-                                    <span className="text-lg text-white">Fast completion - weeks not months</span>
-                                </div>
                             </div>
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <Link
+                                    to="/assessment"
+                                    className="inline-block bg-white text-blue-600 font-bold py-4 px-8 rounded-lg text-lg hover:bg-gray-100 transition text-center"
+                                >
+                                    Check Your Eligibility
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Right Column - Image */}
+                        <div className="flex justify-center">
+                            <img src="/images/hero-couple.svg" alt="Divorce illustration" className="max-w-md w-full" />
                         </div>
                     </div>
                 </div>

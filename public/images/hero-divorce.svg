@@ -1,0 +1,40 @@
+<svg width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heroGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background gradient -->
+  <rect width="1200" height="600" fill="url(#heroGradient)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="950" cy="150" r="100" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
+  <circle cx="950" cy="150" r="130" fill="none" stroke="white" stroke-width="1" opacity="0.2"/>
+
+  <circle cx="200" cy="480" r="80" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
+
+  <!-- Large decorative element on right -->
+  <ellipse cx="1000" cy="100" rx="200" ry="250" fill="white" opacity="0.05"/>
+
+  <!-- Main text -->
+  <text x="60" y="200" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white">
+    Divorce Made Simple
+  </text>
+
+  <!-- Subtitle -->
+  <text x="60" y="280" font-family="Arial, sans-serif" font-size="32" fill="#dbeafe">
+    Fast, Affordable, Online
+  </text>
+
+  <!-- Decorative line -->
+  <line x1="60" y1="320" x2="400" y2="320" stroke="white" stroke-width="3" opacity="0.6"/>
+
+  <!-- Features list -->
+  <g font-family="Arial, sans-serif" font-size="18" fill="white">
+    <text x="60" y="380">✓ Simple, step-by-step process</text>
+    <text x="60" y="420">✓ Just $199 - no hidden fees</text>
+    <text x="60" y="460">✓ Available in all 50 states</text>
+  </g>
+</svg>

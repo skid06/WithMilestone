@@ -1,0 +1,129 @@
+<svg width="600" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skinGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f4a460;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d2691e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shirtGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shirtGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Left person (woman) -->
+  <!-- Head -->
+  <circle cx="150" cy="80" r="35" fill="url(#skinGradient)"/>
+
+  <!-- Hair -->
+  <ellipse cx="150" cy="55" rx="38" ry="30" fill="#8b4513"/>
+  <path d="M 112 65 Q 100 70 105 95 Q 110 100 120 90" fill="#8b4513"/>
+  <path d="M 188 65 Q 200 70 195 95 Q 190 100 180 90" fill="#8b4513"/>
+
+  <!-- Eyes -->
+  <circle cx="140" cy="75" r="3" fill="#000"/>
+  <circle cx="160" cy="75" r="3" fill="#000"/>
+
+  <!-- Smile -->
+  <path d="M 140 90 Q 150 98 160 90" stroke="#8b4513" stroke-width="2" fill="none"/>
+
+  <!-- Neck -->
+  <rect x="145" y="110" width="10" height="15" fill="url(#skinGradient)"/>
+
+  <!-- Body - Blue dress -->
+  <path d="M 130 125 L 170 125 L 175 180 L 125 180 Z" fill="url(#shirtGradient1)"/>
+
+  <!-- Arms -->
+  <ellipse cx="115" cy="140" rx="12" ry="35" fill="url(#skinGradient)"/>
+  <ellipse cx="185" cy="140" rx="12" ry="35" fill="url(#skinGradient)"/>
+
+  <!-- Hands -->
+  <circle cx="110" cy="175" r="8" fill="url(#skinGradient)"/>
+  <circle cx="190" cy="175" r="8" fill="url(#skinGradient)"/>
+
+  <!-- Legs -->
+  <rect x="138" y="180" width="8" height="50" fill="#333"/>
+  <rect x="154" y="180" width="8" height="50" fill="#333"/>
+
+  <!-- Shoes -->
+  <ellipse cx="142" cy="233" rx="6" ry="5" fill="#000"/>
+  <ellipse cx="158" cy="233" rx="6" ry="5" fill="#000"/>
+
+  <!-- Separation line in the middle -->
+  <line x1="300" y1="50" x2="300" y2="280" stroke="#e5e7eb" stroke-width="3" stroke-dasharray="5,5"/>
+
+  <!-- Right person (man) -->
+  <!-- Head -->
+  <circle cx="450" cy="80" r="35" fill="url(#skinGradient)"/>
+
+  <!-- Hair -->
+  <ellipse cx="450" cy="50" rx="40" ry="28" fill="#1a1a1a"/>
+
+  <!-- Eyes -->
+  <circle cx="440" cy="75" r="3" fill="#000"/>
+  <circle cx="460" cy="75" r="3" fill="#000"/>
+
+  <!-- Mouth - neutral expression -->
+  <path d="M 440 90 Q 450 92 460 90" stroke="#8b4513" stroke-width="2" fill="none"/>
+
+  <!-- Neck -->
+  <rect x="445" y="110" width="10" height="15" fill="url(#skinGradient)"/>
+
+  <!-- Body - Orange/burnt orange shirt -->
+  <path d="M 420 125 L 480 125 L 485 180 L 415 180 Z" fill="url(#shirtGradient2)"/>
+
+  <!-- Arms -->
+  <ellipse cx="405" cy="140" rx="12" ry="35" fill="url(#skinGradient)"/>
+  <ellipse cx="495" cy="140" rx="12" ry="35" fill="url(#skinGradient)"/>
+
+  <!-- Hands -->
+  <circle cx="400" cy="175" r="8" fill="url(#skinGradient)"/>
+  <circle cx="500" cy="175" r="8" fill="url(#skinGradient)"/>
+
+  <!-- Legs -->
+  <rect x="438" y="180" width="8" height="50" fill="#333"/>
+  <rect x="454" y="180" width="8" height="50" fill="#333"/>
+
+  <!-- Shoes -->
+  <ellipse cx="442" cy="233" rx="6" ry="5" fill="#000"/>
+  <ellipse cx="458" cy="233" rx="6" ry="5" fill="#000"/>
+
+  <!-- Symbolic separation/break element -->
+  <!-- Broken heart shape in the middle -->
+  <g transform="translate(300, 150)">
+    <!-- Left half of heart -->
+    <path d="M -15 0 Q -20 -10 -15 -15 Q -8 -12 -8 -5 Z" fill="#ef4444" opacity="0.7"/>
+    <!-- Right half of heart (broken) -->
+    <path d="M 15 0 Q 20 -10 15 -15 Q 8 -12 8 -5 Z" fill="#ef4444" opacity="0.4"/>
+    <!-- Break line -->
+    <line x1="0" y1="-8" x2="0" y2="10" stroke="#ef4444" stroke-width="2"/>
+  </g>
+
+  <!-- Decorative elements -->
+  <!-- Document/contract icons -->
+  <g transform="translate(80, 280)">
+    <rect x="0" y="0" width="30" height="40" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1" rx="2"/>
+    <line x1="5" y1="8" x2="25" y2="8" stroke="#9ca3af" stroke-width="1"/>
+    <line x1="5" y1="15" x2="25" y2="15" stroke="#9ca3af" stroke-width="1"/>
+    <line x1="5" y1="22" x2="20" y2="22" stroke="#9ca3af" stroke-width="1"/>
+  </g>
+
+  <!-- Document/contract icons -->
+  <g transform="translate(490, 280)">
+    <rect x="0" y="0" width="30" height="40" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1" rx="2"/>
+    <line x1="5" y1="8" x2="25" y2="8" stroke="#9ca3af" stroke-width="1"/>
+    <line x1="5" y1="15" x2="25" y2="15" stroke="#9ca3af" stroke-width="1"/>
+    <line x1="5" y1="22" x2="20" y2="22" stroke="#9ca3af" stroke-width="1"/>
+  </g>
+
+  <!-- Bottom text labels -->
+  <text x="150" y="450" font-family="Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">
+    Simple Process
+  </text>
+  <text x="450" y="450" font-family="Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">
+    Professional Help
+  </text>
+</svg>
