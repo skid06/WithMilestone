@@ -44,7 +44,7 @@ export default function HomePage() {
 
                         {/* Right Column - Image */}
                         <div className="flex justify-center">
-                            <img src="/images/hero-couple.svg" alt="Divorce illustration" className="max-w-md w-full" />
+                            <img src="/images/hero-dissolution.png" alt="Professional mediation meeting" className="w-full rounded-lg shadow-lg" />
                         </div>
                     </div>
                 </div>
