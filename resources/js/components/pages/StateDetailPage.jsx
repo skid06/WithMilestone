@@ -151,53 +151,11 @@ export default function StateDetailPage() {
                             <span className="text-2xl mr-3">⚙️</span>
                             Divorce Process in {state.state_name}
                         </h2>
-                        <ol className="space-y-4">
-                            <li className="flex gap-4">
-                                <div className="flex-shrink-0">
-                                    <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-600 text-white font-semibold">1</div>
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-gray-900">File Petition</h3>
-                                    <p className="text-gray-600">File the divorce petition with your county court</p>
-                                </div>
-                            </li>
-                            <li className="flex gap-4">
-                                <div className="flex-shrink-0">
-                                    <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-600 text-white font-semibold">2</div>
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-gray-900">Serve Spouse</h3>
-                                    <p className="text-gray-600">Serve the petition to your spouse according to state requirements</p>
-                                </div>
-                            </li>
-                            <li className="flex gap-4">
-                                <div className="flex-shrink-0">
-                                    <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-600 text-white font-semibold">3</div>
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-gray-900">Respond & Waiting Period</h3>
-                                    <p className="text-gray-600">Spouse has time to respond while waiting period elapses</p>
-                                </div>
-                            </li>
-                            <li className="flex gap-4">
-                                <div className="flex-shrink-0">
-                                    <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-600 text-white font-semibold">4</div>
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-gray-900">Settlement Agreement</h3>
-                                    <p className="text-gray-600">Reach agreement on property division, custody, and support</p>
-                                </div>
-                            </li>
-                            <li className="flex gap-4">
-                                <div className="flex-shrink-0">
-                                    <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-600 text-white font-semibold">5</div>
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-gray-900">Final Judgment</h3>
-                                    <p className="text-gray-600">Court issues final divorce decree</p>
-                                </div>
-                            </li>
-                        </ol>
+                        {state.divorce_process && (
+                            <p className="text-gray-700 leading-relaxed text-lg">
+                                {state.divorce_process}
+                            </p>
+                        )}
                     </section>
                 </div>
 
