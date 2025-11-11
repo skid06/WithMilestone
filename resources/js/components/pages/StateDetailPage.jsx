@@ -183,6 +183,19 @@ export default function StateDetailPage() {
                             </p>
                         )}
                     </section>
+
+                    {/* Property Division Section */}
+                    <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+                            <span className="text-2xl mr-3">🏠</span>
+                            Property Division in {state.state_name}
+                        </h2>
+                        {state.property_division && (
+                            <p className="text-gray-700 leading-relaxed text-lg">
+                                {state.property_division}
+                            </p>
+                        )}
+                    </section>
                 </div>
 
                 {/* Right Column - Sidebar */}
