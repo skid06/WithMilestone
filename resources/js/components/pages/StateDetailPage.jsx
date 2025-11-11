@@ -157,6 +157,19 @@ export default function StateDetailPage() {
                             </p>
                         )}
                     </section>
+
+                    {/* Custody of Child Section */}
+                    <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+                            <span className="text-2xl mr-3">👨‍👩‍👧</span>
+                            Custody of Child in {state.state_name}
+                        </h2>
+                        {state.custody_of_child && (
+                            <p className="text-gray-700 leading-relaxed text-lg">
+                                {state.custody_of_child}
+                            </p>
+                        )}
+                    </section>
                 </div>
 
                 {/* Right Column - Sidebar */}
