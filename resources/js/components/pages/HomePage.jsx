@@ -6,36 +6,36 @@ export default function HomePage() {
     return (
         <div className="-mx-4 sm:-mx-6 lg:-mx-8">
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 px-4 sm:px-6 lg:px-8">
+            <section className="bg-white text-gray-900 py-20 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         {/* Left Column - Text Content */}
                         <div>
-                            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-gray-900">
                                 Divorce Made Simple, Fast, and Affordable
                             </h1>
-                            <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+                            <p className="text-xl text-gray-700 mb-8 leading-relaxed">
                                 Handle your divorce entirely online, from the comfort of your home, without the hassle
                                 of expensive lawyers or court appearances.
                             </p>
                             <div className="space-y-4 mb-8">
                                 <div className="flex items-start gap-3">
-                                    <span className="text-2xl text-white">✓</span>
-                                    <span className="text-lg text-white">Simple, step-by-step process</span>
+                                    <span className="text-2xl text-blue-600 font-bold">✓</span>
+                                    <span className="text-lg text-gray-700">Simple, step-by-step process</span>
                                 </div>
                                 <div className="flex items-start gap-3">
-                                    <span className="text-2xl text-white">✓</span>
-                                    <span className="text-lg text-white">Just $199 - no hidden fees</span>
+                                    <span className="text-2xl text-blue-600 font-bold">✓</span>
+                                    <span className="text-lg text-gray-700">Just $199 - no hidden fees</span>
                                 </div>
                                 <div className="flex items-start gap-3">
-                                    <span className="text-2xl text-white">✓</span>
-                                    <span className="text-lg text-white">Available in all 50 states</span>
+                                    <span className="text-2xl text-blue-600 font-bold">✓</span>
+                                    <span className="text-lg text-gray-700">Available in all 50 states</span>
                                 </div>
                             </div>
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <Link
                                     to="/assessment"
-                                    className="inline-block bg-white text-blue-600 font-bold py-4 px-8 rounded-lg text-lg hover:bg-gray-100 transition text-center"
+                                    className="inline-block bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-blue-700 transition text-center"
                                 >
                                     Check Your Eligibility
                                 </Link>
@@ -44,7 +44,7 @@ export default function HomePage() {
 
                         {/* Right Column - Image */}
                         <div className="flex justify-center">
-                            <img src="/images/hero-dissolution.png" alt="Professional mediation meeting" className="w-full rounded-lg shadow-lg" />
+                            <img src="/images/hero-dissolution.png" alt="Professional mediation meeting" className="w-full rounded-lg shadow-xl" />
                         </div>
                     </div>
                 </div>
