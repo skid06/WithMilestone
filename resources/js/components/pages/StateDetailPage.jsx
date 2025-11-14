@@ -198,7 +198,7 @@ export default function StateDetailPage() {
                     </section>
 
                     {/* Spousal Support Rules Section */}
-                    <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200">
+                    <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200" style={{ display: 'none' }}>
                         <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                             <span className="text-2xl mr-3">💍</span>
                             Spousal Support in {state.state_name}
@@ -211,7 +211,7 @@ export default function StateDetailPage() {
                     </section>
 
                     {/* Mediation Support Section */}
-                    <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200">
+                    <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200" style={{ display: 'none' }}>
                         <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                             <span className="text-2xl mr-3">🤝</span>
                             Mediation Support in {state.state_name}
