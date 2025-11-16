@@ -7,7 +7,8 @@ import ResultsCard from './ResultsCard';
 export default function EligibilityAssessment({ onComplete }) {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const stateCode = searchParams.get('state_code') || '';
+    const urlStateCode = searchParams.get('state_code') || '';
+    const [stateCode, setStateCode] = useState(urlStateCode);
 
     const [sessionId, setSessionId] = useState(null);
     const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -18,6 +19,7 @@ export default function EligibilityAssessment({ onComplete }) {
     const [error, setError] = useState(null);
     const [assessmentResultId, setAssessmentResultId] = useState(null);
     const [totalQuestions, setTotalQuestions] = useState(12);
+    const [canGoBack, setCanGoBack] = useState(false);
 
     // Memoize fetchQuestion to prevent stale closures
     const fetchQuestion = useCallback(async (sid) => {
@@ -38,6 +40,11 @@ export default function EligibilityAssessment({ onComplete }) {
                 // Assessment is complete - clear session storage
                 sessionStorage.removeItem('assessmentSessionId');
 
+                // Use state code from results if not provided in URL
+                if (!urlStateCode && response.data.state_code) {
+                    setStateCode(response.data.state_code);
+                }
+
                 // Assessment is complete
                 setIsComplete(true);
                 setAssessmentResultId(response.data.assessment_result_id);
@@ -46,9 +53,12 @@ export default function EligibilityAssessment({ onComplete }) {
                     reasons: response.data.reasons,
                     state_code: response.data.state_code,
                 });
+                setCanGoBack(false);
             } else if (response.data.question) {
                 setCurrentQuestion(response.data.question);
                 setCurrentStep(response.data.current_step);
+                // Can go back if we're past step 1
+                setCanGoBack(response.data.current_step > 1);
             }
         } catch (err) {
             setError('Failed to fetch question. Please try again.');
@@ -86,6 +96,33 @@ export default function EligibilityAssessment({ onComplete }) {
         }
     }, [fetchQuestion]);
 
+    const handleGoBack = useCallback(async () => {
+        try {
+            setLoading(true);
+            const token = localStorage.getItem('auth_token');
+            const config = token ? {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            } : {};
+
+            // Call API to undo the last response
+            const response = await axios.post('/api/assessment/undo', {
+                session_id: sessionId,
+            }, config);
+
+            if (response.data.success) {
+                // Fetch the previous question
+                fetchQuestion(sessionId);
+            }
+        } catch (err) {
+            setError('Failed to go back. Please try again.');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }, [sessionId, fetchQuestion]);
+
     useEffect(() => {
         // Check if there's an existing session in progress
         const existingSessionId = sessionStorage.getItem('assessmentSessionId');
@@ -122,6 +159,11 @@ export default function EligibilityAssessment({ onComplete }) {
             if (response.data.is_complete) {
                 // Assessment is complete - clear session storage
                 sessionStorage.removeItem('assessmentSessionId');
+
+                // Use state code from results if not provided in URL
+                if (!urlStateCode && response.data.state_code) {
+                    setStateCode(response.data.state_code);
+                }
 
                 // Assessment is complete
                 setIsComplete(true);
@@ -193,6 +235,9 @@ export default function EligibilityAssessment({ onComplete }) {
                     question={currentQuestion}
                     onSubmit={handleAnswerSubmit}
                     loading={loading}
+                    stateCode={stateCode}
+                    onGoBack={handleGoBack}
+                    canGoBack={canGoBack}
                 />
             ) : isComplete && results ? (
                 <ResultsCard

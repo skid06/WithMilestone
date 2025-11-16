@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate, Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
-export default function LoginPage() {
+export default function AdminLoginPage() {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const redirectUrl = searchParams.get('redirect') || '/dashboard';
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,9 +20,9 @@ export default function LoginPage() {
             setLoading(true);
             const response = await axios.post('/api/auth/login', formData);
 
-            // Check if user is trying to access admin but is not admin
-            if (response.data.user.role === 'admin') {
-                setError('Please use the admin login portal for admin accounts.');
+            // Check if user is admin
+            if (response.data.user.role !== 'admin') {
+                setError('Access denied. Admin account required.');
                 return;
             }
 
@@ -35,8 +33,8 @@ export default function LoginPage() {
             // Set axios default header
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
-            // Redirect to the URL they came from, or dashboard
-            navigate(redirectUrl);
+            // Redirect to admin dashboard
+            navigate('/admin/dashboard');
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed. Please try again.');
             console.error(err);
@@ -46,11 +44,11 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-blue-600 text-white p-8 text-center">
+                <div className="bg-purple-600 text-white p-8 text-center">
                     <h1 className="text-3xl font-bold">WithMilestone</h1>
-                    <p className="text-blue-100 mt-2">Sign In to Your Account</p>
+                    <p className="text-purple-100 mt-2">Admin Portal - Sign In</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6">
@@ -71,8 +69,8 @@ export default function LoginPage() {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            placeholder="you@example.com"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                            placeholder="admin@example.com"
                         />
                     </div>
 
@@ -87,7 +85,7 @@ export default function LoginPage() {
                             value={formData.password}
                             onChange={handleChange}
                             required
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
                             placeholder="••••••••"
                         />
                     </div>
@@ -95,20 +93,19 @@ export default function LoginPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded-lg transition"
+                        className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded-lg transition"
                     >
-                        {loading ? 'Signing In...' : 'Sign In'}
+                        {loading ? 'Signing In...' : 'Sign In as Admin'}
                     </button>
 
                     <div className="text-center text-sm space-y-2">
                         <p className="text-gray-600">
-                            Don't have an account?{' '}
-                            <Link to="/register" className="text-blue-600 hover:text-blue-700 font-semibold">
-                                Create one
+                            <Link to="/login/user" className="text-purple-600 hover:text-purple-700 font-semibold">
+                                Sign in as regular user instead
                             </Link>
                         </p>
                         <p className="text-gray-600">
-                            <Link to="/login" className="text-blue-600 hover:text-blue-700 font-semibold">
+                            <Link to="/login" className="text-purple-600 hover:text-purple-700 font-semibold">
                                 Back to login selection
                             </Link>
                         </p>

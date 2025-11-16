@@ -145,8 +145,9 @@ class AssessmentController extends Controller
         // If this is the location question, store the state code
         if ($question->section === 'location' && $request->selected_option_id) {
             $option = QuestionOption::find($request->selected_option_id);
-            if ($option && in_array($option->option_value, ['CA', 'TX', 'NY', 'MN', 'FL', 'IL', 'OH', 'PA', 'GA', 'NC'])) {
-                $session->update(['state_code' => $option->option_value]);
+            if ($option && strlen($option->option_value) === 2 && ctype_alpha($option->option_value)) {
+                // Store any valid 2-letter state code (all 50 US states)
+                $session->update(['state_code' => strtoupper($option->option_value)]);
             }
         }
 
@@ -209,6 +210,46 @@ class AssessmentController extends Controller
             'reasons' => $ineligibilityReasons,
             'assessment_result_id' => $result->id,
             'state_code' => $session->state_code,
+        ]);
+    }
+
+    /**
+     * Undo the last answer and go back to previous question
+     */
+    public function undoAnswer(Request $request)
+    {
+        $request->validate([
+            'session_id' => 'required|exists:assessment_sessions,id',
+        ]);
+
+        $session = AssessmentSession::find($request->session_id);
+
+        if ($session->is_completed) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot undo completed assessment',
+            ], 422);
+        }
+
+        if ($session->current_step <= 1) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot go back from first question',
+            ], 422);
+        }
+
+        // Delete the last response
+        UserResponse::where('assessment_session_id', $session->id)
+            ->orderBy('created_at', 'desc')
+            ->limit(1)
+            ->delete();
+
+        // Decrement the current step
+        $session->update(['current_step' => $session->current_step - 1]);
+
+        return response()->json([
+            'success' => true,
+            'current_step' => $session->current_step,
         ]);
     }
 

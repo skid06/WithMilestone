@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\AdminController;
 
 // Public authentication routes (no auth required)
 Route::prefix('auth')->group(function () {
@@ -38,6 +39,7 @@ Route::prefix('assessment')->group(function () {
     Route::post('/start', [AssessmentController::class, 'startSession']);
     Route::post('/question', [AssessmentController::class, 'getQuestion']);
     Route::post('/answer', [AssessmentController::class, 'submitAnswer']);
+    Route::post('/undo', [AssessmentController::class, 'undoAnswer']);
     Route::post('/results', [AssessmentController::class, 'getResults']);
 });
 
@@ -65,4 +67,12 @@ Route::middleware('auth:sanctum')->prefix('payments')->group(function () {
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Protected admin routes (admin only)
+Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
+    Route::get('/applications', [AdminController::class, 'getApplications']);
+    Route::get('/applications/{id}', [AdminController::class, 'getApplicationDetail']);
+    Route::get('/dashboard/stats', [AdminController::class, 'getDashboardStats']);
+    Route::get('/applications/export/csv', [AdminController::class, 'exportApplications']);
 });

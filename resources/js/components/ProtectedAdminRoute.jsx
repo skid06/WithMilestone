@@ -1,22 +1,21 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-export default function ProtectedRoute({ children }) {
+export default function ProtectedAdminRoute({ children }) {
     const token = localStorage.getItem('auth_token');
     const userData = localStorage.getItem('user');
 
     if (!token) {
-        return <Navigate to="/login/user" replace />;
+        return <Navigate to="/login/admin" replace />;
     }
 
-    // Prevent admin users from accessing regular user dashboard
     try {
         const user = JSON.parse(userData);
-        if (user.role === 'admin') {
-            return <Navigate to="/admin/dashboard" replace />;
+        if (user.role !== 'admin') {
+            return <Navigate to="/" replace />;
         }
     } catch (err) {
-        // Continue if JSON parse fails
+        return <Navigate to="/login/admin" replace />;
     }
 
     return children;

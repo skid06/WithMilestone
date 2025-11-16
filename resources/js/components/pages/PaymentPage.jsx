@@ -154,8 +154,14 @@ function PaymentForm({
                 setError(response.data.message || 'Failed to create payment intent');
             }
         } catch (err) {
-            setError(err.response?.data?.message || 'Error creating payment intent');
-            console.error(err);
+            console.error('Payment intent error:', err);
+            if (err.response?.data?.errors) {
+                const errors = err.response.data.errors;
+                const errorMessages = Object.values(errors).flat().join(', ');
+                setError(errorMessages || 'Validation error. Please check your assessment ID and state.');
+            } else {
+                setError(err.response?.data?.message || 'Error creating payment intent. Please try again.');
+            }
         } finally {
             setLoading(false);
         }

@@ -28,8 +28,13 @@ export default function CheckoutPage() {
     const [paymentInfo, setPaymentInfo] = useState(null);
 
     useEffect(() => {
-        if (!assessmentId || !stateCode) {
-            setError('Missing assessment or state information');
+        if (!assessmentId) {
+            setError('Missing assessment ID. Please complete the eligibility assessment first.');
+            return;
+        }
+
+        if (!stateCode) {
+            setError('Missing state information. Please complete the eligibility assessment first.');
             return;
         }
 
@@ -98,8 +103,14 @@ export default function CheckoutPage() {
                 setError(registerResponse.data.message || 'Registration failed');
             }
         } catch (err) {
-            setError(err.response?.data?.message || 'Registration error');
-            console.error(err);
+            console.error('Registration error:', err);
+            if (err.response?.data?.errors) {
+                const errors = err.response.data.errors;
+                const errorMessages = Object.values(errors).flat().join(', ');
+                setError(errorMessages || 'Registration failed. Please check your information.');
+            } else {
+                setError(err.response?.data?.message || 'Registration error. Please try again.');
+            }
         } finally {
             setLoading(false);
         }
@@ -138,13 +149,21 @@ export default function CheckoutPage() {
                 setError(registerResponse.data.message || 'Failed to create guest account');
             }
         } catch (err) {
-            // If email already exists, try to proceed anyway with guest flow
+            console.error('Guest checkout error:', err);
+            // If email already exists
             if (err.response?.status === 422) {
-                setError('This email is already registered. Please use login or sign up instead.');
+                if (err.response?.data?.errors?.email) {
+                    setError('This email is already registered. Please use login or sign up instead.');
+                } else if (err.response?.data?.errors) {
+                    const errors = err.response.data.errors;
+                    const errorMessages = Object.values(errors).flat().join(', ');
+                    setError(errorMessages || 'Validation error. Please check your information.');
+                } else {
+                    setError(err.response?.data?.message || 'This email is already in use.');
+                }
             } else {
-                setError(err.response?.data?.message || 'Checkout error');
+                setError(err.response?.data?.message || 'Checkout error. Please try again.');
             }
-            console.error(err);
         } finally {
             setLoading(false);
         }

@@ -3,10 +3,14 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import EligibilityAssessment from './EligibilityAssessment';
 import StateDetailPage from './pages/StateDetailPage';
+import LoginSelectionPage from './auth/LoginSelectionPage';
 import LoginPage from './auth/LoginPage';
+import AdminLoginPage from './auth/AdminLoginPage';
 import RegisterPage from './auth/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import ProtectedRoute from './ProtectedRoute';
+import ProtectedAdminRoute from './ProtectedAdminRoute';
+import AdminDashboard from './AdminDashboard';
 import CheckoutPage from './pages/CheckoutPage';
 import PaymentPage from './pages/PaymentPage';
 import PaymentSuccessPage from './pages/PaymentSuccessPage';
@@ -31,7 +35,7 @@ export default function App() {
         localStorage.removeItem('user');
         setIsAuthenticated(false);
         setUser(null);
-        navigate('/');
+        navigate('/login');
     };
 
     return (
@@ -51,6 +55,11 @@ export default function App() {
                                 <Link to="/dashboard" className="text-gray-600 hover:text-gray-900 font-medium">
                                     Dashboard
                                 </Link>
+                                {user && user.role === 'admin' && (
+                                    <Link to="/admin/dashboard" className="text-blue-600 hover:text-blue-900 font-bold">
+                                        Admin Panel
+                                    </Link>
+                                )}
                                 <button
                                     onClick={handleLogout}
                                     className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition"
@@ -60,8 +69,8 @@ export default function App() {
                             </>
                         ) : (
                             <>
-                                <Link to="/login" className="text-gray-600 hover:text-gray-900 font-medium">
-                                    Sign In
+                                <Link to="/login/user" className="text-gray-600 hover:text-gray-900 font-medium">
+                                    Log In
                                 </Link>
                                 <Link to="/register" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
                                     Sign Up
@@ -75,7 +84,9 @@ export default function App() {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginSelectionPage />} />
+                    <Route path="/login/user" element={<LoginPage />} />
+                    <Route path="/login/admin" element={<AdminLoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route
                         path="/dashboard"
@@ -102,6 +113,14 @@ export default function App() {
                             <ProtectedRoute>
                                 <PaymentSuccessPage />
                             </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/admin/dashboard"
+                        element={
+                            <ProtectedAdminRoute>
+                                <AdminDashboard />
+                            </ProtectedAdminRoute>
                         }
                     />
                 </Routes>
