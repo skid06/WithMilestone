@@ -100,16 +100,11 @@ export default function LoginPage() {
                         {loading ? 'Signing In...' : 'Sign In'}
                     </button>
 
-                    <div className="text-center text-sm space-y-2">
+                    <div className="text-center text-sm">
                         <p className="text-gray-600">
                             Don't have an account?{' '}
                             <Link to="/register" className="text-blue-600 hover:text-blue-700 font-semibold">
                                 Create one
-                            </Link>
-                        </p>
-                        <p className="text-gray-600">
-                            <Link to="/login" className="text-blue-600 hover:text-blue-700 font-semibold">
-                                Back to login selection
                             </Link>
                         </p>
                     </div>

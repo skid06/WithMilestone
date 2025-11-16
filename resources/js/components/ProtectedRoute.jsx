@@ -6,7 +6,7 @@ export default function ProtectedRoute({ children }) {
     const userData = localStorage.getItem('user');
 
     if (!token) {
-        return <Navigate to="/login/user" replace />;
+        return <Navigate to="/login" replace />;
     }
 
     // Prevent admin users from accessing regular user dashboard

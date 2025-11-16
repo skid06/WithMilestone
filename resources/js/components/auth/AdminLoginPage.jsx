@@ -98,15 +98,10 @@ export default function AdminLoginPage() {
                         {loading ? 'Signing In...' : 'Sign In as Admin'}
                     </button>
 
-                    <div className="text-center text-sm space-y-2">
-                        <p className="text-gray-600">
-                            <Link to="/login/user" className="text-purple-600 hover:text-purple-700 font-semibold">
-                                Sign in as regular user instead
-                            </Link>
-                        </p>
+                    <div className="text-center text-sm">
                         <p className="text-gray-600">
                             <Link to="/login" className="text-purple-600 hover:text-purple-700 font-semibold">
-                                Back to login selection
+                                Sign in as regular user instead
                             </Link>
                         </p>
                     </div>

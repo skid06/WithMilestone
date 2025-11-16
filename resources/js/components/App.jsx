@@ -3,7 +3,6 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import EligibilityAssessment from './EligibilityAssessment';
 import StateDetailPage from './pages/StateDetailPage';
-import LoginSelectionPage from './auth/LoginSelectionPage';
 import LoginPage from './auth/LoginPage';
 import AdminLoginPage from './auth/AdminLoginPage';
 import RegisterPage from './auth/RegisterPage';
@@ -69,7 +68,7 @@ export default function App() {
                             </>
                         ) : (
                             <>
-                                <Link to="/login/user" className="text-gray-600 hover:text-gray-900 font-medium">
+                                <Link to="/login" className="text-gray-600 hover:text-gray-900 font-medium">
                                     Log In
                                 </Link>
                                 <Link to="/register" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
@@ -84,8 +83,7 @@ export default function App() {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/login" element={<LoginSelectionPage />} />
-                    <Route path="/login/user" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginPage />} />
                     <Route path="/login/admin" element={<AdminLoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route
