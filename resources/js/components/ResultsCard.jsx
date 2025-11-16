@@ -23,11 +23,11 @@ export default function ResultsCard({ results, onBackToHome, assessmentId, state
                     </div>
                     <div className="flex gap-3">
                         <button
-                            onClick={() => {
-                                const finalStateCode = stateCode || results.state_code || 'unknown';
-                                const finalAssessmentId = assessmentId || 'unknown';
-                                navigate(`/checkout?assessment_id=${finalAssessmentId}&state_code=${finalStateCode}`);
-                            }}
+                            // onClick={() => {
+                            //     const finalStateCode = stateCode || results.state_code || 'unknown';
+                            //     const finalAssessmentId = assessmentId || 'unknown';
+                            //     navigate(`/checkout?assessment_id=${finalAssessmentId}&state_code=${finalStateCode}`);
+                            // }}
                             className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition"
                         >
                             Continue to Checkout
