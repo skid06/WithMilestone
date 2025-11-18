@@ -222,6 +222,58 @@ export default function StateDetailPage() {
                             </p>
                         )}
                     </section>
+
+                    {/* Divorce Forms Section */}
+                    <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+                            <span className="text-2xl mr-3">📄</span>
+                            Divorce Forms in {state.state_name}
+                        </h2>
+                        <p className="text-lg text-gray-700 leading-relaxed">
+                            {state.state_name} forms produced by WithMilestone.com are court-approved divorce forms. We have automated filling out paperwork to simplify matters and avoid any difficulties that may occur with filling out paperwork alone. By utilizing WithMilestone.com, you can simplify preparing divorce documents and help both parties move forward with their lives.
+                        </p>
+                        <div className="mt-6 pt-6 border-t border-gray-200">
+                            <Link
+                                to={`/assessment?state_code=${stateCode}`}
+                                className="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition text-center"
+                            >
+                                Start My Divorce
+                            </Link>
+                        </div>
+                    </section>
+
+                    {/* Filing Fees Section */}
+                    <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+                            <span className="text-2xl mr-3">⚖️</span>
+                            Filing fees for divorce in {state.state_name}
+                        </h2>
+                        <div className="space-y-6">
+                            <div>
+                                <h3 className="font-semibold text-gray-900 mb-3 text-lg">Filing fees for divorce in {state.state_name}</h3>
+                                <p className="text-gray-700 leading-relaxed">
+                                    When you file your divorce papers, the court will charge filing fees that may vary by county. These costs are in addition to the cost of using WithMilestone.com. Please check with your local courthouse to determine the exact amount.
+                                </p>
+                            </div>
+                            <div className="border-t border-gray-200 pt-6">
+                                <h3 className="font-semibold text-gray-900 mb-3 text-lg">How long will it take?</h3>
+                                <p className="text-gray-700 leading-relaxed mb-4">
+                                    Using the WithMilestone.com service usually takes between 30 minutes and two hours or more, depending on the complexity of your case. Start by filling out the questionnaire. You can do it in one sitting or save your progress and complete it at a later date. Whatever is most convenient for you.
+                                </p>
+                                <p className="text-gray-700 leading-relaxed">
+                                    Once you've received the completed documents, you will need to file them and get your spouse's signature. You'll receive more information regarding the finalization of the divorce case once the paperwork has been completed and submitted to the courts.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-gray-200">
+                            <Link
+                                to={`/assessment?state_code=${stateCode}`}
+                                className="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition text-center"
+                            >
+                                Start My Divorce
+                            </Link>
+                        </div>
+                    </section>
                 </div>
 
                 {/* Right Column - Sidebar */}
