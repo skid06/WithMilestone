@@ -104,47 +104,6 @@ export default function StateDetailPage() {
             <div className="grid lg:grid-cols-3 gap-8 mb-12">
                 {/* Left Column - Detailed Info */}
                 <div className="lg:col-span-2 space-y-8">
-                    {/* Requirements Section */}
-                    <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
-                            <span className="text-2xl mr-3">📋</span>
-                            Divorce Requirements
-                        </h2>
-                        <div className="space-y-4">
-                            <div className="pb-4 border-b border-gray-200">
-                                <h3 className="font-semibold text-gray-900 mb-2">Residency Requirement</h3>
-                                <p className="text-gray-600">
-                                    {state.residency_requirement_days
-                                        ? `At least one spouse must have resided in ${state.state_name} for ${state.residency_requirement_days} days before filing.`
-                                        : `Check with your local court for residency requirements in ${state.state_name}.`}
-                                </p>
-                            </div>
-
-                            <div className="pb-4 border-b border-gray-200">
-                                <h3 className="font-semibold text-gray-900 mb-2">Filing Fee</h3>
-                                <p className="text-gray-600">
-                                    {state.min_filing_fee
-                                        ? `The minimum filing fee is $${state.min_filing_fee}. Actual fees may vary by county.`
-                                        : `Contact your county courthouse for current filing fees.`}
-                                </p>
-                            </div>
-
-                            <div className="pb-4 border-b border-gray-200">
-                                <h3 className="font-semibold text-gray-900 mb-2">Waiting Period</h3>
-                                <p className="text-gray-600">
-                                    Most states have a waiting period between filing and finalization. Check with your county clerk for specific timelines.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h3 className="font-semibold text-gray-900 mb-2">Grounds for Divorce</h3>
-                                <p className="text-gray-600">
-                                    {state.state_name} accepts both contested and uncontested divorces. Common grounds include irreconcilable differences and fault-based reasons.
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
                     {/* Process Section */}
                     <section className="bg-white rounded-lg shadow-sm p-8 border border-gray-200">
                         <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
