@@ -133,7 +133,7 @@ export default function QuestionCard({ question, onSubmit, loading, stateCode, o
                     </div>
                 )}
 
-                {/* Checkbox Questions */}
+                {/* Checkbox Questions - Now using Radio Buttons */}
                 {question.type === 'checkbox' && (
                     <div className="space-y-3 mb-6">
                         {question.options.map((option) => (
@@ -142,7 +142,8 @@ export default function QuestionCard({ question, onSubmit, loading, stateCode, o
                                 className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition"
                             >
                                 <input
-                                    type="checkbox"
+                                    type="radio"
+                                    name="option"
                                     value={option.id}
                                     checked={selectedOption === option.id}
                                     onChange={(e) => setSelectedOption(parseInt(e.target.value))}
