@@ -27,15 +27,6 @@ export default function CheckoutPage() {
 
     const [paymentInfo, setPaymentInfo] = useState(null);
 
-    // Redirect to payment if already authenticated
-    useEffect(() => {
-        const token = localStorage.getItem('auth_token');
-        if (token) {
-            // User is already logged in, skip checkout and go directly to payment
-            navigate(`/payment?assessment_id=${assessmentId}&state_code=${stateCode}`);
-        }
-    }, [assessmentId, stateCode, navigate]);
-
     useEffect(() => {
         // Get pre-filled values from URL params
         const fullName = searchParams.get('fullName');

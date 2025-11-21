@@ -26,20 +26,10 @@ export default function ResultsCard({ results, onBackToHome, assessmentId, state
                             onClick={() => {
                                 const finalStateCode = stateCode || results.state_code || 'unknown';
                                 const finalAssessmentId = assessmentId || 'unknown';
-
-                                // Check if user is already authenticated (e.g., from Google sign-up)
-                                const token = localStorage.getItem('auth_token');
-
-                                // If authenticated, skip checkout and go directly to payment
-                                if (token) {
-                                    navigate(`/payment?assessment_id=${finalAssessmentId}&state_code=${finalStateCode}`);
-                                } else {
-                                    // If not authenticated, go to checkout
-                                    let checkoutUrl = `/checkout?assessment_id=${finalAssessmentId}&state_code=${finalStateCode}`;
-                                    if (fullName) checkoutUrl += `&fullName=${encodeURIComponent(fullName)}`;
-                                    if (email) checkoutUrl += `&email=${encodeURIComponent(email)}`;
-                                    navigate(checkoutUrl);
-                                }
+                                let checkoutUrl = `/checkout?assessment_id=${finalAssessmentId}&state_code=${finalStateCode}`;
+                                if (fullName) checkoutUrl += `&fullName=${encodeURIComponent(fullName)}`;
+                                if (email) checkoutUrl += `&email=${encodeURIComponent(email)}`;
+                                navigate(checkoutUrl);
                             }}
                             className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition"
                         >

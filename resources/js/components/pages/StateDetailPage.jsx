@@ -142,8 +142,9 @@ export default function StateDetailPage() {
                     console.error('Validation errors:', err.response.data.errors);
                 }
 
-                // If email already exists, try to login instead
-                if (err.response?.status === 422) {
+                // If email already exists, proceed without auth token
+                // User will need to login at checkout
+                if (err.response?.status === 422 && err.response?.data?.errors?.email) {
                     try {
                         const googleUser = await axios.get(
                             'https://www.googleapis.com/oauth2/v1/userinfo',
@@ -154,18 +155,19 @@ export default function StateDetailPage() {
                             }
                         ).catch(() => null);
 
-                        const userName = qualificationData.fullName || googleUser?.name || qualificationData.email || '';
+                        const userName = qualificationData.fullName || googleUser?.name || googleUser?.email || '';
                         const userEmail = qualificationData.email || googleUser?.email || '';
 
-                        // For existing users, we can't login with password since they authenticated via Google
-                        // Just proceed with qualification data (they may need to reset password or use Google login again)
-                        console.log('User already exists with this email, proceeding without login token');
+                        console.log('Email already exists - user has existing account');
 
                         // Store qualification data for assessment and checkout
                         localStorage.setItem('qualification_data', JSON.stringify({
                             fullName: userName,
                             email: userEmail,
                         }));
+
+                        // Show alert that account exists
+                        alert('This email is already registered. You\'ll be able to login with your existing account at checkout.');
 
                         const params = new URLSearchParams({
                             state_code: stateCode,
@@ -174,10 +176,11 @@ export default function StateDetailPage() {
                         });
                         navigate(`/assessment?${params.toString()}`);
                     } catch (loginErr) {
-                        console.error('Login error:', loginErr);
+                        console.error('Error handling existing user:', loginErr);
                         alert('An error occurred. Please try again.');
                     }
                 } else {
+                    console.error('Unexpected registration error');
                     alert('An error occurred during sign-up. Please try again.');
                 }
             } finally {
