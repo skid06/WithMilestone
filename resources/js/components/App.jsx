@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import HomePage from './pages/HomePage';
 import EligibilityAssessment from './EligibilityAssessment';
 import StateDetailPage from './pages/StateDetailPage';
@@ -37,7 +38,10 @@ export default function App() {
         navigate('/login');
     };
 
-    return (
+    const googleClientId = process.env.MIX_GOOGLE_CLIENT_ID || '';
+
+    // Only wrap with GoogleOAuthProvider if we have a clientId
+    const AppContent = () => (
         <div className="min-h-screen bg-gray-50">
             <nav className="bg-white shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
@@ -124,5 +128,14 @@ export default function App() {
                 </Routes>
             </main>
         </div>
+    );
+
+    // Conditionally wrap with GoogleOAuthProvider if we have a clientId
+    return googleClientId ? (
+        <GoogleOAuthProvider clientId={googleClientId}>
+            <AppContent />
+        </GoogleOAuthProvider>
+    ) : (
+        <AppContent />
     );
 }
