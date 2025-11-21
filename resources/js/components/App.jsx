@@ -38,9 +38,8 @@ export default function App() {
         navigate('/login');
     };
 
-    const googleClientId = process.env.MIX_GOOGLE_CLIENT_ID || '';
+    const googleClientId = process.env.MIX_GOOGLE_CLIENT_ID || '895661484918-foephk2j69o27hsje2o4o0e7f7s4scjg.apps.googleusercontent.com';
 
-    // Only wrap with GoogleOAuthProvider if we have a clientId
     const AppContent = () => (
         <div className="min-h-screen bg-gray-50">
             <nav className="bg-white shadow-sm">
@@ -130,12 +129,10 @@ export default function App() {
         </div>
     );
 
-    // Conditionally wrap with GoogleOAuthProvider if we have a clientId
-    return googleClientId ? (
+    // Always wrap with GoogleOAuthProvider
+    return (
         <GoogleOAuthProvider clientId={googleClientId}>
             <AppContent />
         </GoogleOAuthProvider>
-    ) : (
-        <AppContent />
     );
 }
