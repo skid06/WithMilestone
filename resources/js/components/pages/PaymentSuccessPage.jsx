@@ -149,7 +149,7 @@ export default function PaymentSuccessPage() {
 
             {/* Generated Documents */}
             {documents && documents.length > 0 && (
-                <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <div className="bg-white rounded-lg shadow-lg p-8 mb-8" style={{ display: 'none' }}>
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Documents</h2>
 
                     {documents.map((doc) => (
