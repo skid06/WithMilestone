@@ -38,7 +38,7 @@ export default function App() {
         navigate('/login');
     };
 
-    const googleClientId = process.env.MIX_GOOGLE_CLIENT_ID || '895661484918-foephk2j69o27hsje2o4o0e7f7s4scjg.apps.googleusercontent.com';
+    const googleClientId = process.env.MIX_GOOGLE_CLIENT_ID || '';
 
     const AppContent = () => (
         <div className="min-h-screen bg-gray-50">
@@ -129,7 +129,12 @@ export default function App() {
         </div>
     );
 
-    // Always wrap with GoogleOAuthProvider
+    // Wrap with GoogleOAuthProvider if clientId is available
+    if (!googleClientId) {
+        console.warn('Google OAuth Client ID is not configured. Google Sign-up will be disabled.');
+        return <AppContent />;
+    }
+
     return (
         <GoogleOAuthProvider clientId={googleClientId}>
             <AppContent />

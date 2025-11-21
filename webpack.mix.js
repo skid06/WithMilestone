@@ -13,4 +13,13 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.jsx', 'public/js')
     .react()
-    .postCss('resources/css/app.css', 'public/css');
+    .postCss('resources/css/app.css', 'public/css')
+    .webpackConfig(webpack => {
+        return {
+            plugins: [
+                new webpack.DefinePlugin({
+                    'process.env.MIX_GOOGLE_CLIENT_ID': JSON.stringify(process.env.MIX_GOOGLE_CLIENT_ID),
+                }),
+            ],
+        };
+    });

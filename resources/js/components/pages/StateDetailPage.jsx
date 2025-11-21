@@ -160,6 +160,11 @@ export default function StateDetailPage() {
     });
 
     const handleGoogleSignUp = () => {
+        // Check if Google OAuth is configured
+        if (!process.env.MIX_GOOGLE_CLIENT_ID) {
+            alert('Google Sign-up is not available at this time. Please use the Check Eligibility button instead.');
+            return;
+        }
         // Initiate Google login directly without validation
         googleLogin();
     };
