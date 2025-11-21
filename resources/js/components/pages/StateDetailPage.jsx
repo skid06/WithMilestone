@@ -96,10 +96,18 @@ export default function StateDetailPage() {
                     google_id: googleUser.id,
                 });
 
-                if (registerResponse.data.success) {
+                console.log('Registration response:', registerResponse.data);
+
+                // Handle successful registration
+                if (registerResponse.data.success || registerResponse.data.token) {
+                    const token = registerResponse.data.token;
+                    const user = registerResponse.data.user || registerResponse.data.data;
+
                     // Store token and user data
-                    localStorage.setItem('auth_token', registerResponse.data.token);
-                    localStorage.setItem('user', JSON.stringify(registerResponse.data.user));
+                    localStorage.setItem('auth_token', token);
+                    if (user) {
+                        localStorage.setItem('user', JSON.stringify(user));
+                    }
 
                     // Store qualification data for assessment and checkout
                     localStorage.setItem('qualification_data', JSON.stringify({
@@ -107,8 +115,10 @@ export default function StateDetailPage() {
                         email: userEmail,
                     }));
 
+                    console.log('Token stored:', localStorage.getItem('auth_token'));
+
                     // Set axios default header
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${registerResponse.data.token}`;
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
                     // Navigate to assessment with the qualification data
                     const params = new URLSearchParams({
@@ -117,17 +127,22 @@ export default function StateDetailPage() {
                         email: userEmail,
                     });
                     navigate(`/assessment?${params.toString()}`);
+                } else {
+                    console.error('Unexpected response format:', registerResponse.data);
+                    alert('Unexpected response from registration. Please try again.');
                 }
             } catch (err) {
                 console.error('Google Sign-up error:', err);
-                // If email already exists, just log them in and proceed
+                console.error('Error response:', err.response?.data);
+
+                // If email already exists, try to login instead
                 if (err.response?.status === 422) {
                     try {
                         const googleUser = await axios.get(
                             'https://www.googleapis.com/oauth2/v1/userinfo',
                             {
                                 headers: {
-                                    Authorization: `Bearer ${err.config.headers.Authorization}`,
+                                    Authorization: `Bearer ${codeResponse.access_token}`,
                                 },
                             }
                         ).catch(() => null);
@@ -135,7 +150,21 @@ export default function StateDetailPage() {
                         const userName = qualificationData.fullName || googleUser?.name || qualificationData.email || '';
                         const userEmail = qualificationData.email || googleUser?.email || '';
 
-                        // User already exists, store qualification data for assessment and checkout
+                        // Try to login with email
+                        const loginResponse = await axios.post('/api/auth/login', {
+                            email: userEmail,
+                            password: googleUser?.id + '@Google' || 'google',
+                        }).catch(() => null);
+
+                        if (loginResponse?.data?.token) {
+                            // Store token from login
+                            localStorage.setItem('auth_token', loginResponse.data.token);
+                            if (loginResponse.data.user) {
+                                localStorage.setItem('user', JSON.stringify(loginResponse.data.user));
+                            }
+                        }
+
+                        // Store qualification data for assessment and checkout
                         localStorage.setItem('qualification_data', JSON.stringify({
                             fullName: userName,
                             email: userEmail,
@@ -148,6 +177,7 @@ export default function StateDetailPage() {
                         });
                         navigate(`/assessment?${params.toString()}`);
                     } catch (loginErr) {
+                        console.error('Login error:', loginErr);
                         alert('An error occurred. Please try again.');
                     }
                 } else {
