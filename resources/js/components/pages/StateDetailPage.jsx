@@ -101,6 +101,12 @@ export default function StateDetailPage() {
                     localStorage.setItem('auth_token', registerResponse.data.token);
                     localStorage.setItem('user', JSON.stringify(registerResponse.data.user));
 
+                    // Store qualification data for assessment and checkout
+                    localStorage.setItem('qualification_data', JSON.stringify({
+                        fullName: userName,
+                        email: userEmail,
+                    }));
+
                     // Set axios default header
                     axios.defaults.headers.common['Authorization'] = `Bearer ${registerResponse.data.token}`;
 
@@ -129,9 +135,9 @@ export default function StateDetailPage() {
                         const userName = qualificationData.fullName || googleUser?.name || qualificationData.email || '';
                         const userEmail = qualificationData.email || googleUser?.email || '';
 
-                        // User already exists, just proceed to assessment
-                        localStorage.setItem('google_user', JSON.stringify({
-                            name: userName,
+                        // User already exists, store qualification data for assessment and checkout
+                        localStorage.setItem('qualification_data', JSON.stringify({
+                            fullName: userName,
                             email: userEmail,
                         }));
 

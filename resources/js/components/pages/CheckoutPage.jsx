@@ -32,21 +32,39 @@ export default function CheckoutPage() {
         const fullName = searchParams.get('fullName');
         const email = searchParams.get('email');
 
+        // Also check localStorage for qualification data (fallback if URL params missing)
+        let storedFullName = '';
+        let storedEmail = '';
+        try {
+            const storedQualificationData = localStorage.getItem('qualification_data');
+            if (storedQualificationData) {
+                const parsed = JSON.parse(storedQualificationData);
+                storedFullName = parsed.fullName || '';
+                storedEmail = parsed.email || '';
+            }
+        } catch (e) {
+            console.error('Error reading qualification data from localStorage:', e);
+        }
+
+        // Use URL params first, then fall back to localStorage
+        const finalFullName = fullName || storedFullName;
+        const finalEmail = email || storedEmail;
+
         // Pre-populate the signup form if values are provided
-        if (fullName || email) {
+        if (finalFullName || finalEmail) {
             setSignupData(prev => ({
                 ...prev,
-                ...(fullName && { name: fullName }),
-                ...(email && { email: email }),
+                ...(finalFullName && { name: finalFullName }),
+                ...(finalEmail && { email: finalEmail }),
             }));
             setGuestData(prev => ({
                 ...prev,
-                ...(email && { email: email }),
+                ...(finalEmail && { email: finalEmail }),
             }));
         }
 
         // Allow either assessmentId or fullName (from quick qualification form)
-        const hasValidPath = assessmentId || searchParams.get('fullName');
+        const hasValidPath = assessmentId || fullName || storedFullName;
         if (!hasValidPath) {
             setError('Missing assessment ID. Please complete the eligibility assessment first.');
             return;

@@ -10,9 +10,13 @@ export default function EligibilityAssessment({ onComplete }) {
     const urlStateCode = searchParams.get('state_code') || '';
     const urlFullName = searchParams.get('fullName') || '';
     const urlEmail = searchParams.get('email') || '';
+
+    // Also check localStorage for qualification data
+    const storedQualificationData = localStorage.getItem('qualification_data') ? JSON.parse(localStorage.getItem('qualification_data')) : {};
+
     const [stateCode, setStateCode] = useState(urlStateCode);
-    const [fullName, setFullName] = useState(urlFullName);
-    const [email, setEmail] = useState(urlEmail);
+    const [fullName, setFullName] = useState(urlFullName || storedQualificationData.fullName || '');
+    const [email, setEmail] = useState(urlEmail || storedQualificationData.email || '');
 
     const [sessionId, setSessionId] = useState(null);
     const [currentQuestion, setCurrentQuestion] = useState(null);
