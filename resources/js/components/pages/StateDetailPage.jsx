@@ -283,7 +283,7 @@ export default function StateDetailPage() {
                                     <div className="space-y-3">
                                         <button
                                             type="submit"
-                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition text-sm"
+                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition text-sm cursor-pointer"
                                         >
                                             Check Eligibility
                                         </button>
@@ -291,7 +291,7 @@ export default function StateDetailPage() {
                                             type="button"
                                             onClick={handleGoogleSignUp}
                                             disabled={isLoadingGoogle}
-                                            className="w-full bg-white hover:bg-gray-50 disabled:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded-lg transition text-sm border border-gray-300 flex items-center justify-center gap-2 disabled:opacity-75"
+                                            className="w-full bg-white hover:bg-gray-50 disabled:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded-lg transition text-sm border border-gray-300 flex items-center justify-center gap-2 disabled:opacity-75 cursor-pointer disabled:cursor-not-allowed"
                                         >
                                             {isLoadingGoogle ? (
                                                 <>
@@ -417,7 +417,7 @@ export default function StateDetailPage() {
                         <div className="mt-6 pt-6 border-t border-gray-200">
                             <Link
                                 to={`/assessment?state_code=${stateCode}`}
-                                className="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition text-center"
+                                className="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition text-center cursor-pointer"
                             >
                                 Start My Divorce
                             </Link>
@@ -450,7 +450,7 @@ export default function StateDetailPage() {
                         <div className="mt-6 pt-6 border-t border-gray-200">
                             <Link
                                 to={`/assessment?state_code=${stateCode}`}
-                                className="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition text-center"
+                                className="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition text-center cursor-pointer"
                             >
                                 Start My Divorce
                             </Link>
@@ -468,7 +468,7 @@ export default function StateDetailPage() {
                         </p>
                         <Link
                             to={`/assessment?state_code=${stateCode}`}
-                            className="block w-full bg-white text-blue-600 font-bold py-3 px-4 rounded text-center hover:bg-gray-100 transition"
+                            className="block w-full bg-white text-blue-600 font-bold py-3 px-4 rounded text-center hover:bg-gray-100 transition cursor-pointer"
                         >
                             Take Eligibility Quiz
                         </Link>
@@ -507,7 +507,7 @@ export default function StateDetailPage() {
                         <p className="text-sm text-gray-600 mb-4">
                             Our team can guide you through the {state.state_name} divorce process.
                         </p>
-                        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition">
+                        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition cursor-pointer">
                             Contact Support
                         </button>
                     </div>
