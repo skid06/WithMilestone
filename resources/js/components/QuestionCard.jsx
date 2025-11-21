@@ -222,7 +222,7 @@ export default function QuestionCard({ question, onSubmit, loading, stateCode, o
                             <button
                                 type="button"
                                 onClick={handleConfirmState}
-                                className="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg transition"
+                                className="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg transition cursor-pointer"
                             >
                                 Keep {STATE_NAMES[getSelectedStateCode()]}
                             </button>
@@ -230,7 +230,7 @@ export default function QuestionCard({ question, onSubmit, loading, stateCode, o
                                 type="button"
                                 onClick={handleConfirmNewState}
                                 disabled={!selectedStateManually}
-                                className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded-lg transition"
+                                className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded-lg transition cursor-pointer disabled:cursor-not-allowed"
                             >
                                 Change to Selected
                             </button>
@@ -246,7 +246,7 @@ export default function QuestionCard({ question, onSubmit, loading, stateCode, o
                                 type="button"
                                 onClick={onGoBack}
                                 disabled={loading}
-                                className="flex-1 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition"
+                                className="flex-1 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition cursor-pointer disabled:cursor-not-allowed"
                             >
                                 {loading ? 'Loading...' : '← Back'}
                             </button>
@@ -254,7 +254,7 @@ export default function QuestionCard({ question, onSubmit, loading, stateCode, o
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`${canGoBack ? 'flex-1' : 'w-full'} bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition`}
+                            className={`${canGoBack ? 'flex-1' : 'w-full'} bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition cursor-pointer disabled:cursor-not-allowed`}
                         >
                             {loading ? 'Loading...' : 'Next'}
                         </button>
