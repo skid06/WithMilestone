@@ -28,19 +28,38 @@ export default function CheckoutPage() {
     const [paymentInfo, setPaymentInfo] = useState(null);
 
     useEffect(() => {
-        if (!assessmentId) {
+        // Get pre-filled values from URL params
+        const fullName = searchParams.get('fullName');
+        const email = searchParams.get('email');
+
+        // Pre-populate the signup form if values are provided
+        if (fullName || email) {
+            setSignupData(prev => ({
+                ...prev,
+                ...(fullName && { name: fullName }),
+                ...(email && { email: email }),
+            }));
+            setGuestData(prev => ({
+                ...prev,
+                ...(email && { email: email }),
+            }));
+        }
+
+        // Allow either assessmentId or fullName (from quick qualification form)
+        const hasValidPath = assessmentId || searchParams.get('fullName');
+        if (!hasValidPath) {
             setError('Missing assessment ID. Please complete the eligibility assessment first.');
             return;
         }
 
         if (!stateCode) {
-            setError('Missing state information. Please complete the eligibility assessment first.');
+            setError('Missing state information. Please select a state first.');
             return;
         }
 
         // Fetch order details (pricing)
         fetchOrderDetails();
-    }, [assessmentId, stateCode]);
+    }, [assessmentId, stateCode, searchParams]);
 
     const fetchOrderDetails = async () => {
         try {

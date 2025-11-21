@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function ResultsCard({ results, onBackToHome, assessmentId, stateCode }) {
+export default function ResultsCard({ results, onBackToHome, assessmentId, stateCode, fullName, email }) {
     const navigate = useNavigate();
 
     return (
@@ -23,11 +23,14 @@ export default function ResultsCard({ results, onBackToHome, assessmentId, state
                     </div>
                     <div className="flex gap-3">
                         <button
-                            // onClick={() => {
-                            //     const finalStateCode = stateCode || results.state_code || 'unknown';
-                            //     const finalAssessmentId = assessmentId || 'unknown';
-                            //     navigate(`/checkout?assessment_id=${finalAssessmentId}&state_code=${finalStateCode}`);
-                            // }}
+                            onClick={() => {
+                                const finalStateCode = stateCode || results.state_code || 'unknown';
+                                const finalAssessmentId = assessmentId || 'unknown';
+                                let checkoutUrl = `/checkout?assessment_id=${finalAssessmentId}&state_code=${finalStateCode}`;
+                                if (fullName) checkoutUrl += `&fullName=${encodeURIComponent(fullName)}`;
+                                if (email) checkoutUrl += `&email=${encodeURIComponent(email)}`;
+                                navigate(checkoutUrl);
+                            }}
                             className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition"
                         >
                             Continue to Checkout

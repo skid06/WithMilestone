@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import StatesFooter from '../StatesFooter';
 
 export default function StateDetailPage() {
     const { stateCode } = useParams();
+    const navigate = useNavigate();
     const [state, setState] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    // Qualification form state
+    const [showQualificationForm, setShowQualificationForm] = useState(false);
+    const [qualificationData, setQualificationData] = useState({
+        agreement: '',
+        fullName: '',
+        email: '',
+    });
 
     useEffect(() => {
         fetchStateDetails();
@@ -24,6 +33,58 @@ export default function StateDetailPage() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleQualificationChange = (e) => {
+        const { name, value } = e.target;
+        setQualificationData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleCheckAvailability = (e) => {
+        e.preventDefault();
+
+        // Validate form
+        if (!qualificationData.agreement || !qualificationData.fullName || !qualificationData.email) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // If they don't agree, show message
+        if (qualificationData.agreement === 'no') {
+            alert('Unfortunately, WithMilestone is designed for uncontested divorces where both spouses agree. Please consult with a family law attorney for contested divorces.');
+            return;
+        }
+
+        // Navigate to assessment page with the qualification data
+        const params = new URLSearchParams({
+            state_code: stateCode,
+            fullName: qualificationData.fullName,
+            email: qualificationData.email,
+        });
+        navigate(`/assessment?${params.toString()}`);
+    };
+
+    const handleGoogleSignUp = () => {
+        // Validate form first
+        if (!qualificationData.agreement || !qualificationData.fullName || !qualificationData.email) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // If they don't agree, show message
+        if (qualificationData.agreement === 'no') {
+            alert('Unfortunately, WithMilestone is designed for uncontested divorces where both spouses agree. Please consult with a family law attorney for contested divorces.');
+            return;
+        }
+
+        // TODO: Implement Google Sign-up functionality
+        // For now, navigate to assessment with the qualification data
+        const params = new URLSearchParams({
+            state_code: stateCode,
+            fullName: qualificationData.fullName,
+            email: qualificationData.email,
+        });
+        navigate(`/assessment?${params.toString()}`);
     };
 
     if (loading) {
@@ -62,33 +123,103 @@ export default function StateDetailPage() {
                             <p className="text-xl text-gray-700 mb-8 leading-relaxed">
                                 Comprehensive guide to filing for divorce in {state.state_name}. Get the information you need to navigate the process efficiently and affordably.
                             </p>
-                            <div className="space-y-4 mb-8">
-                                {state.residency_requirement_days && (
-                                    <div className="flex items-start gap-3">
-                                        <span className="text-2xl text-blue-600 font-bold">✓</span>
-                                        <span className="text-lg text-gray-700">Residency: {state.residency_requirement_days} days</span>
+
+                            {/* Check Eligibility Form */}
+                            <div className="rounded-lg p-6 border-2 border-blue-100 mb-8">
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">See If You Qualify</h3>
+                                <form onSubmit={handleCheckAvailability} className="space-y-4">
+                                    {/* Agreement Question */}
+                                    <div>
+                                        <label className="block font-semibold text-gray-900 mb-3 text-sm">
+                                            Are you and your spouse both in agreement with signing the divorce papers?
+                                        </label>
+                                        <div className="space-y-2">
+                                            <div className="flex items-center">
+                                                <input
+                                                    type="radio"
+                                                    id="agreement-yes"
+                                                    name="agreement"
+                                                    value="yes"
+                                                    checked={qualificationData.agreement === 'yes'}
+                                                    onChange={handleQualificationChange}
+                                                    className="w-4 h-4 text-blue-600 cursor-pointer"
+                                                />
+                                                <label htmlFor="agreement-yes" className="ml-2 text-gray-700 text-sm cursor-pointer">
+                                                    Yes, we both agree
+                                                </label>
+                                            </div>
+                                            <div className="flex items-center">
+                                                <input
+                                                    type="radio"
+                                                    id="agreement-no"
+                                                    name="agreement"
+                                                    value="no"
+                                                    checked={qualificationData.agreement === 'no'}
+                                                    onChange={handleQualificationChange}
+                                                    className="w-4 h-4 text-blue-600 cursor-pointer"
+                                                />
+                                                <label htmlFor="agreement-no" className="ml-2 text-gray-700 text-sm cursor-pointer">
+                                                    No, we don't agree
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
-                                )}
-                                {state.min_filing_fee && (
-                                    <div className="flex items-start gap-3">
-                                        <span className="text-2xl text-blue-600 font-bold">✓</span>
-                                        <span className="text-lg text-gray-700">Filing Fee: ${state.min_filing_fee}</span>
+
+                                    {/* Full Name Field */}
+                                    <div>
+                                        <label htmlFor="fullName" className="block font-semibold text-gray-900 mb-2 text-sm">
+                                            Full Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="fullName"
+                                            name="fullName"
+                                            value={qualificationData.fullName}
+                                            onChange={handleQualificationChange}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
+                                            placeholder="John Doe"
+                                        />
                                     </div>
-                                )}
-                                {state.supports_uncontested && (
-                                    <div className="flex items-start gap-3">
-                                        <span className="text-2xl text-blue-600 font-bold">✓</span>
-                                        <span className="text-lg text-gray-700">Uncontested Divorce Available</span>
+
+                                    {/* Email Field */}
+                                    <div>
+                                        <label htmlFor="email" className="block font-semibold text-gray-900 mb-2 text-sm">
+                                            Email Address
+                                        </label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            value={qualificationData.email}
+                                            onChange={handleQualificationChange}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
+                                            placeholder="your@email.com"
+                                        />
                                     </div>
-                                )}
-                            </div>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <Link
-                                    to={`/assessment?state_code=${stateCode}`}
-                                    className="inline-block bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-blue-700 transition text-center"
-                                >
-                                    Check Your Eligibility
-                                </Link>
+
+                                    {/* Buttons */}
+                                    <div className="space-y-3">
+                                        <button
+                                            type="submit"
+                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition text-sm"
+                                        >
+                                            Check Eligibility
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={handleGoogleSignUp}
+                                            className="w-full bg-white hover:bg-gray-50 text-gray-800 font-bold py-2 px-4 rounded-lg transition text-sm border border-gray-300 flex items-center justify-center gap-2"
+                                        >
+                                            <svg className="w-5 h-5" viewBox="0 0 24 24">
+                                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                            </svg>
+                                            Sign Up with Google
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 

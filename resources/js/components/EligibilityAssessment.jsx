@@ -8,7 +8,11 @@ export default function EligibilityAssessment({ onComplete }) {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const urlStateCode = searchParams.get('state_code') || '';
+    const urlFullName = searchParams.get('fullName') || '';
+    const urlEmail = searchParams.get('email') || '';
     const [stateCode, setStateCode] = useState(urlStateCode);
+    const [fullName, setFullName] = useState(urlFullName);
+    const [email, setEmail] = useState(urlEmail);
 
     const [sessionId, setSessionId] = useState(null);
     const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -245,6 +249,8 @@ export default function EligibilityAssessment({ onComplete }) {
                     onBackToHome={onComplete}
                     assessmentId={assessmentResultId}
                     stateCode={stateCode}
+                    fullName={fullName}
+                    email={email}
                 />
             ) : null}
         </div>
