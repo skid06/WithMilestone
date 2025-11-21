@@ -87,12 +87,15 @@ export default function StateDetailPage() {
                 const userName = qualificationData.fullName || googleUser.name || googleUser.email;
                 const userEmail = qualificationData.email || googleUser.email;
 
+                // Generate a strong random password for Google users
+                const randomPassword = Math.random().toString(36).slice(-16) + 'Google123!';
+
                 // Register user with Google account data
                 const registerResponse = await axios.post('/api/auth/register', {
                     name: userName,
                     email: userEmail,
-                    password: googleUser.id + '@Google',
-                    password_confirmation: googleUser.id + '@Google',
+                    password: randomPassword,
+                    password_confirmation: randomPassword,
                     google_id: googleUser.id,
                 });
 
@@ -133,7 +136,11 @@ export default function StateDetailPage() {
                 }
             } catch (err) {
                 console.error('Google Sign-up error:', err);
-                console.error('Error response:', err.response?.data);
+                console.error('Error status:', err.response?.status);
+                console.error('Error data:', err.response?.data);
+                if (err.response?.data?.errors) {
+                    console.error('Validation errors:', err.response.data.errors);
+                }
 
                 // If email already exists, try to login instead
                 if (err.response?.status === 422) {
@@ -150,19 +157,9 @@ export default function StateDetailPage() {
                         const userName = qualificationData.fullName || googleUser?.name || qualificationData.email || '';
                         const userEmail = qualificationData.email || googleUser?.email || '';
 
-                        // Try to login with email
-                        const loginResponse = await axios.post('/api/auth/login', {
-                            email: userEmail,
-                            password: googleUser?.id + '@Google' || 'google',
-                        }).catch(() => null);
-
-                        if (loginResponse?.data?.token) {
-                            // Store token from login
-                            localStorage.setItem('auth_token', loginResponse.data.token);
-                            if (loginResponse.data.user) {
-                                localStorage.setItem('user', JSON.stringify(loginResponse.data.user));
-                            }
-                        }
+                        // For existing users, we can't login with password since they authenticated via Google
+                        // Just proceed with qualification data (they may need to reset password or use Google login again)
+                        console.log('User already exists with this email, proceeding without login token');
 
                         // Store qualification data for assessment and checkout
                         localStorage.setItem('qualification_data', JSON.stringify({
