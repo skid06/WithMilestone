@@ -14,6 +14,11 @@ import AdminDashboard from './AdminDashboard';
 import CheckoutPage from './pages/CheckoutPage';
 import PaymentPage from './pages/PaymentPage';
 import PaymentSuccessPage from './pages/PaymentSuccessPage';
+import HowItWorksPage from './pages/HowItWorksPage';
+import WhyUsPage from './pages/WhyUsPage';
+import AboutUsPage from './pages/AboutUsPage';
+import OurGuaranteePage from './pages/OurGuaranteePage';
+import Header from './Header/Header';
 
 export default function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -42,50 +47,19 @@ export default function App() {
 
     const AppContent = () => (
         <div className="min-h-screen bg-gray-50">
-            <nav className="bg-white shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                    <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700">
-                        WithMilestone
-                    </Link>
-                    <div className="flex gap-6 items-center">
-                        <Link to="/" className="text-gray-600 hover:text-gray-900 font-medium">
-                            Home
-                        </Link>
-
-                        {isAuthenticated ? (
-                            <>
-                                <Link to="/dashboard" className="text-gray-600 hover:text-gray-900 font-medium">
-                                    Dashboard
-                                </Link>
-                                {user && user.role === 'admin' && (
-                                    <Link to="/admin/dashboard" className="text-blue-600 hover:text-blue-900 font-bold">
-                                        Admin Panel
-                                    </Link>
-                                )}
-                                <button
-                                    onClick={handleLogout}
-                                    className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition"
-                                >
-                                    Logout
-                                </button>
-                            </>
-                        ) : (
-                            <>
-                                <Link to="/login" className="text-gray-600 hover:text-gray-900 font-medium">
-                                    Log In
-                                </Link>
-                                <Link to="/register" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
-                                    Sign Up
-                                </Link>
-                            </>
-                        )}
-                    </div>
-                </div>
-            </nav>
+            <Header
+                isAuthenticated={isAuthenticated}
+                user={user}
+                onLogout={handleLogout}
+            />
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
+                    <Route path="/how-it-works" element={<HowItWorksPage />} />
+                    <Route path="/why-us" element={<WhyUsPage />} />
+                    <Route path="/about-us" element={<AboutUsPage />} />
+                    <Route path="/our-guarantee" element={<OurGuaranteePage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/login/admin" element={<AdminLoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
