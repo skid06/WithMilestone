@@ -58,19 +58,19 @@ export default function Header({ isAuthenticated, user, onLogout }) {
                         </div>
 
                         {/* Reviews Link */}
-                        <a href="#reviews" className="text-gray-600 hover:text-gray-900 font-medium">
+                        <Link to="/reviews" className="text-gray-600 hover:text-gray-900 font-medium">
                             Reviews
-                        </a>
+                        </Link>
 
                         {/* FAQ Link */}
-                        <a href="#faq" className="text-gray-600 hover:text-gray-900 font-medium">
+                        <Link to="/faq" className="text-gray-600 hover:text-gray-900 font-medium">
                             FAQ
-                        </a>
+                        </Link>
 
                         {/* Blog Link */}
-                        <a href="#blog" className="text-gray-600 hover:text-gray-900 font-medium">
+                        <Link to="/blog" className="text-gray-600 hover:text-gray-900 font-medium">
                             Blog
-                        </a>
+                        </Link>
 
                         {/* Vertical Separator */}
                         <div className="h-6 w-px bg-gray-300"></div>
