@@ -6,7 +6,13 @@ export default function FooterMainSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 sm:gap-6 lg:gap-8 mb-12">
             {/* Brand & Address - Full width on mobile */}
             <div className="sm:col-span-2 lg:col-span-1">
-                <h2 className="text-2xl font-bold text-blue-400 mb-6">WithMilestone</h2>
+                <Link to="/">
+                    <img
+                        src="/images/withMilestone-logo.png"
+                        alt="WithMilestone"
+                        className="h-16 w-auto mb-6"
+                    />
+                </Link>
                 <div className="space-y-4">
                     <div>
                         <h4 className="font-semibold text-gray-300 mb-2 flex items-center gap-2">

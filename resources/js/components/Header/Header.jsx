@@ -15,11 +15,16 @@ export default function Header({ isAuthenticated, user, onLogout }) {
 
     return (
         <nav className="bg-white shadow-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <div className="flex justify-between items-center">
                     {/* Logo */}
-                    <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700">
-                        WithMilestone
+                    <Link to="/" className="flex items-center flex-shrink-0">
+                        {/* Mobile: Show full logo */}
+                        <img
+                            src="/images/withMilestone-logo.png"
+                            alt="WithMilestone"
+                            className="h-12 w-auto lg:h-16"
+                        />
                     </Link>
 
                     {/* Hamburger Menu Button (Mobile) */}
@@ -53,7 +58,7 @@ export default function Header({ isAuthenticated, user, onLogout }) {
                     </button>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden lg:flex gap-6 items-center">
+                    <div className="hidden lg:flex gap-4 xl:gap-6 items-center flex-wrap">
                         {/* Divorce Services Dropdown */}
                         <div className="relative group">
                             <button className="text-gray-600 hover:text-gray-900 font-medium flex items-center gap-2 py-2">
