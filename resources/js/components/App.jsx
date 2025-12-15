@@ -52,16 +52,19 @@ export default function App() {
     const AppContent = () => {
         const location = useLocation();
         const hideFooter = location.pathname === '/' || location.pathname === '/assessment' || location.pathname.startsWith('/states/');
+        const isAdminRoute = location.pathname.startsWith('/admin/');
 
         return (
             <div className="min-h-screen bg-gray-50 flex flex-col">
-                <Header
-                    isAuthenticated={isAuthenticated}
-                    user={user}
-                    onLogout={handleLogout}
-                />
+                {!isAdminRoute && (
+                    <Header
+                        isAuthenticated={isAuthenticated}
+                        user={user}
+                        onLogout={handleLogout}
+                    />
+                )}
 
-                <main className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+                <main className={`flex-grow ${!isAdminRoute ? 'max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8' : ''}`}>
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/how-it-works" element={<HowItWorksPage />} />
@@ -112,7 +115,7 @@ export default function App() {
                     </Routes>
                 </main>
 
-                {!hideFooter && <Footer />}
+                {!hideFooter && !isAdminRoute && <Footer />}
             </div>
         );
     };

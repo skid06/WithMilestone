@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AdminHeader from './Header/AdminHeader';
+import AdminFooter from './Footer/AdminFooter';
 
 export default function AdminDashboard() {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+            setUser(JSON.parse(userData));
+        }
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user');
+        window.location.href = '/login/admin';
+    };
     const [applications, setApplications] = useState([]);
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -138,7 +154,9 @@ export default function AdminDashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-8">
+        <>
+            <AdminHeader user={user} onLogout={handleLogout} />
+            <div className="min-h-screen bg-gray-100 p-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
@@ -480,5 +498,7 @@ export default function AdminDashboard() {
                 </div>
             )}
         </div>
+        <AdminFooter />
+        </>
     );
 }
