@@ -1,0 +1,10 @@
+<svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon Circle -->
+  <circle cx="20" cy="20" r="18" fill="#3B82F6"/>
+
+  <!-- M Letter in Circle -->
+  <text x="20" y="28" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="white" text-anchor="middle">M</text>
+
+  <!-- "Milestone" Text -->
+  <text x="48" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="#1F2937">Milestone</text>
+</svg>

@@ -1,28 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AdminHeader from './Header/AdminHeader';
-import AdminFooter from './Footer/AdminFooter';
+import AdminLayout from './Admin/AdminLayout';
 
 export default function AdminDashboard() {
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const userData = localStorage.getItem('user');
-        if (userData) {
-            setUser(JSON.parse(userData));
-        }
-    }, []);
-
-    const handleLogout = () => {
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('user');
-        window.location.href = '/login/admin';
-    };
+    const navigate = useNavigate();
     const [applications, setApplications] = useState([]);
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [selectedApplication, setSelectedApplication] = useState(null);
-    const [showDetailModal, setShowDetailModal] = useState(false);
 
     // Filters
     const [filters, setFilters] = useState({
@@ -108,21 +93,8 @@ export default function AdminDashboard() {
         }
     };
 
-    const handleViewDetails = async (id) => {
-        try {
-            const token = localStorage.getItem('auth_token');
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            };
-
-            const response = await axios.get(`/api/admin/applications/${id}`, config);
-            setSelectedApplication(response.data.data);
-            setShowDetailModal(true);
-        } catch (err) {
-            console.error('Failed to fetch application details:', err);
-        }
+    const handleViewDetails = (id) => {
+        navigate(`/admin/applications/${id}`);
     };
 
     const handleExport = async () => {
@@ -154,10 +126,9 @@ export default function AdminDashboard() {
     };
 
     return (
-        <>
-            <AdminHeader user={user} onLogout={handleLogout} />
-            <div className="min-h-screen bg-gray-100 p-8">
-            <div className="max-w-7xl mx-auto">
+        <AdminLayout>
+            <div className="p-8">
+                <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
@@ -420,85 +391,7 @@ export default function AdminDashboard() {
                     </table>
                 </div>
             </div>
-
-            {/* Detail Modal */}
-            {showDetailModal && selectedApplication && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                    <div className="bg-white rounded-lg shadow-lg max-w-2xl max-h-96 overflow-y-auto p-8">
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-2xl font-bold text-gray-900">Application Details</h2>
-                            <button
-                                onClick={() => setShowDetailModal(false)}
-                                className="text-gray-500 hover:text-gray-700 text-2xl"
-                            >
-                                ×
-                            </button>
-                        </div>
-
-                        <div className="space-y-4">
-                            <div>
-                                <p className="text-gray-600 text-sm">ID</p>
-                                <p className="text-gray-900 font-semibold">{selectedApplication.id}</p>
-                            </div>
-                            <div>
-                                <p className="text-gray-600 text-sm">Email</p>
-                                <p className="text-gray-900 font-semibold">
-                                    {selectedApplication.user ? selectedApplication.user.email : 'Anonymous'}
-                                </p>
-                            </div>
-                            <div>
-                                <p className="text-gray-600 text-sm">Name</p>
-                                <p className="text-gray-900 font-semibold">
-                                    {selectedApplication.user ? selectedApplication.user.name : 'N/A'}
-                                </p>
-                            </div>
-                            <div>
-                                <p className="text-gray-600 text-sm">State</p>
-                                <p className="text-gray-900 font-semibold">{selectedApplication.state_code}</p>
-                            </div>
-                            <div>
-                                <p className="text-gray-600 text-sm">Status</p>
-                                <p className="text-gray-900 font-semibold">{selectedApplication.eligibility_status}</p>
-                            </div>
-                            <div>
-                                <p className="text-gray-600 text-sm">Eligible</p>
-                                <p className="text-gray-900 font-semibold">
-                                    {selectedApplication.result ? (
-                                        selectedApplication.result.is_eligible ? '✓ Yes' : '✗ No'
-                                    ) : (
-                                        'N/A'
-                                    )}
-                                </p>
-                            </div>
-                            {selectedApplication.result && selectedApplication.result.ineligibility_reasons && (
-                                <div>
-                                    <p className="text-gray-600 text-sm">Ineligibility Reasons</p>
-                                    <ul className="list-disc list-inside text-gray-900">
-                                        {selectedApplication.result.ineligibility_reasons.map((reason, idx) => (
-                                            <li key={idx}>{reason}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-                            <div>
-                                <p className="text-gray-600 text-sm">Completion Date</p>
-                                <p className="text-gray-900 font-semibold">
-                                    {new Date(selectedApplication.completion_date).toLocaleString()}
-                                </p>
-                            </div>
-                        </div>
-
-                        <button
-                            onClick={() => setShowDetailModal(false)}
-                            className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition"
-                        >
-                            Close
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
-        <AdminFooter />
-        </>
+            </div>
+        </AdminLayout>
     );
 }

@@ -11,6 +11,9 @@ import DashboardPage from './pages/DashboardPage';
 import ProtectedRoute from './ProtectedRoute';
 import ProtectedAdminRoute from './ProtectedAdminRoute';
 import AdminDashboard from './AdminDashboard';
+import AdminApplicationDetailPage from './pages/AdminApplicationDetailPage';
+import AdminApplicationsPage from './pages/AdminApplicationsPage';
+import AdminUsersPage from './pages/AdminUsersPage';
 import CheckoutPage from './pages/CheckoutPage';
 import PaymentPage from './pages/PaymentPage';
 import PaymentSuccessPage from './pages/PaymentSuccessPage';
@@ -109,6 +112,30 @@ export default function App() {
                             element={
                                 <ProtectedAdminRoute>
                                     <AdminDashboard />
+                                </ProtectedAdminRoute>
+                            }
+                        />
+                        <Route
+                            path="/admin/applications/:id"
+                            element={
+                                <ProtectedAdminRoute>
+                                    <AdminApplicationDetailPage />
+                                </ProtectedAdminRoute>
+                            }
+                        />
+                        <Route
+                            path="/admin/applications"
+                            element={
+                                <ProtectedAdminRoute>
+                                    <AdminApplicationsPage />
+                                </ProtectedAdminRoute>
+                            }
+                        />
+                        <Route
+                            path="/admin/users"
+                            element={
+                                <ProtectedAdminRoute>
+                                    <AdminUsersPage />
                                 </ProtectedAdminRoute>
                             }
                         />
